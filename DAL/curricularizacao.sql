@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 07-Jun-2026 às 23:38
+-- Tempo de geração: 20-Jun-2026 às 14:07
 -- Versão do servidor: 10.4.32-MariaDB
 -- versão do PHP: 8.2.12
 
@@ -24,55 +24,60 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `areas_agricolas`
+-- Estrutura da tabela `aplicacao`
 --
 
-CREATE TABLE `areas_agricolas` (
+CREATE TABLE `aplicacao` (
+  `id` int(11) NOT NULL,
+  `data_aplicacao` date NOT NULL,
+  `quantidade_utilizada` decimal(10,2) NOT NULL,
+  `observacao` text DEFAULT NULL,
+  `insumo_id` int(11) NOT NULL,
+  `lote_id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `insumo`
+--
+
+CREATE TABLE `insumo` (
   `id` int(11) NOT NULL,
   `nome` varchar(100) NOT NULL,
-  `localizacao` varchar(150) NOT NULL,
-  `tamanho_hectares` decimal(10,2) NOT NULL,
-  `safra_id` int(11) NOT NULL
+  `tipo` varchar(50) NOT NULL,
+  `unidade_medida` varchar(20) NOT NULL,
+  `quantidade_estoque` decimal(10,2) NOT NULL,
+  `imagem` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `culturas`
+-- Estrutura da tabela `lote`
 --
 
-CREATE TABLE `culturas` (
+CREATE TABLE `lote` (
   `id` int(11) NOT NULL,
   `nome` varchar(100) NOT NULL,
-  `tipo_monitoramento` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `safras`
---
-
-CREATE TABLE `safras` (
-  `id` int(11) NOT NULL,
-  `descricao` varchar(100) NOT NULL,
-  `ano_agricola` varchar(20) NOT NULL,
-  `data_inicio` date NOT NULL,
-  `data_fim` date NOT NULL,
-  `cultura_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `talhoes`
---
-
-CREATE TABLE `talhoes` (
-  `id` int(11) NOT NULL,
-  `identificacao` varchar(100) NOT NULL,
+  `cultura` varchar(50) NOT NULL,
   `area_hectares` decimal(10,2) NOT NULL,
-  `area_id` int(11) NOT NULL
+  `localizacao` varchar(150) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `senha` varchar(255) NOT NULL,
+  `perfil` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -80,58 +85,59 @@ CREATE TABLE `talhoes` (
 --
 
 --
--- Índices para tabela `areas_agricolas`
+-- Índices para tabela `aplicacao`
 --
-ALTER TABLE `areas_agricolas`
+ALTER TABLE `aplicacao`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_area_safra` (`safra_id`);
+  ADD KEY `fk_aplicacao_insumo` (`insumo_id`),
+  ADD KEY `fk_aplicacao_lote` (`lote_id`),
+  ADD KEY `fk_aplicacao_usuario` (`usuario_id`);
 
 --
--- Índices para tabela `culturas`
+-- Índices para tabela `insumo`
 --
-ALTER TABLE `culturas`
+ALTER TABLE `insumo`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices para tabela `safras`
+-- Índices para tabela `lote`
 --
-ALTER TABLE `safras`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_safras_culturas` (`cultura_id`);
+ALTER TABLE `lote`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Índices para tabela `talhoes`
+-- Índices para tabela `usuario`
 --
-ALTER TABLE `talhoes`
+ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_talhoes_areas` (`area_id`);
+  ADD UNIQUE KEY `unique` (`email`);
 
 --
 -- AUTO_INCREMENT de tabelas despejadas
 --
 
 --
--- AUTO_INCREMENT de tabela `areas_agricolas`
+-- AUTO_INCREMENT de tabela `aplicacao`
 --
-ALTER TABLE `areas_agricolas`
+ALTER TABLE `aplicacao`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `culturas`
+-- AUTO_INCREMENT de tabela `insumo`
 --
-ALTER TABLE `culturas`
+ALTER TABLE `insumo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `safras`
+-- AUTO_INCREMENT de tabela `lote`
 --
-ALTER TABLE `safras`
+ALTER TABLE `lote`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `talhoes`
+-- AUTO_INCREMENT de tabela `usuario`
 --
-ALTER TABLE `talhoes`
+ALTER TABLE `usuario`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -139,22 +145,12 @@ ALTER TABLE `talhoes`
 --
 
 --
--- Limitadores para a tabela `areas_agricolas`
+-- Limitadores para a tabela `aplicacao`
 --
-ALTER TABLE `areas_agricolas`
-  ADD CONSTRAINT `fk_area_safra` FOREIGN KEY (`safra_id`) REFERENCES `safras` (`id`);
-
---
--- Limitadores para a tabela `safras`
---
-ALTER TABLE `safras`
-  ADD CONSTRAINT `fk_safras_culturas` FOREIGN KEY (`cultura_id`) REFERENCES `culturas` (`id`);
-
---
--- Limitadores para a tabela `talhoes`
---
-ALTER TABLE `talhoes`
-  ADD CONSTRAINT `fk_talhao_area` FOREIGN KEY (`area_id`) REFERENCES `areas_agricolas` (`id`);
+ALTER TABLE `aplicacao`
+  ADD CONSTRAINT `fk_aplicacao_insumo` FOREIGN KEY (`insumo_id`) REFERENCES `insumo` (`id`),
+  ADD CONSTRAINT `fk_aplicacao_lote` FOREIGN KEY (`lote_id`) REFERENCES `lote` (`id`),
+  ADD CONSTRAINT `fk_aplicacao_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
