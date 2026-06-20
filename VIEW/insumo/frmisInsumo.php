@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Insumo</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+
+<body class="green lighten-5">
+
+<div class="container">
+    <h3>Cadastrar Insumo</h3>
+
+    <form action="opinsInsumo.php" method="post">
+
+        <div class="input-field">
+            <input type="text" name="nome" id="nome" required>
+            <label for="nome">Nome do insumo</label>
+        </div>
+
+        <div class="input-field">
+            <input type="text" name="tipo" id="tipo" required>
+            <label for="tipo">Tipo</label>
+        </div>
+
+        <div class="input-field">
+            <input type="text" name="unidade_medida" id="unidade_medida" required>
+            <label for="unidade_medida">Unidade de medida</label>
+        </div>
+
+        <div class="input-field">
+            <input type="number" step="0.01" min="0" name="quantidade_estoque" id="quantidade_estoque" required>
+            <label for="quantidade_estoque">Quantidade em estoque</label>
+        </div>
+
+        <div class="input-field">
+            <input type="text" name="imagem" id="imagem">
+            <label for="imagem">Imagem (opcional)</label>
+        </div>
+
+        <button class="btn green" type="submit">Salvar</button>
+        <a class="btn grey" href="lstInsumo.php">Cancelar</a>
+    </form>
+</div>
+
+</body>
+</html>

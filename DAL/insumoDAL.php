@@ -1,0 +1,118 @@
+<?php
+
+namespace DAL;
+
+include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/DAL/conexao.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/MODEL/insumo.php";
+
+class InsumoDAL
+{
+    public function Select()
+    {
+        $sql = "SELECT * FROM insumo;";
+        $con = Conexao::conectar();
+        $registros = $con->query($sql);
+        $con = Conexao::desconectar();
+
+        $lstInsumo = [];
+
+        foreach ($registros as $linha) {
+            $insumo = new \MODEL\Insumo();
+
+            $insumo->setId($linha['id']);
+            $insumo->setNome($linha['nome']);
+            $insumo->setTipo($linha['tipo']);
+            $insumo->setUnidadeMedida($linha['unidade_medida']);
+            $insumo->setQuantidadeEstoque($linha['quantidade_estoque']);
+            $insumo->setImagem($linha['imagem']);
+
+            $lstInsumo[] = $insumo;
+        }
+
+        return $lstInsumo;
+    }
+
+    public function SelectById(int $id)
+    {
+        $sql = "SELECT * FROM insumo WHERE id = ?;";
+
+        $con = Conexao::conectar();
+        $query = $con->prepare($sql);
+        $query->execute(array($id));
+        $linha = $query->fetch(\PDO::FETCH_ASSOC);
+        $con = Conexao::desconectar();
+
+        $insumo = new \MODEL\Insumo();
+
+        $insumo->setId($linha['id']);
+        $insumo->setNome($linha['nome']);
+        $insumo->setTipo($linha['tipo']);
+        $insumo->setUnidadeMedida($linha['unidade_medida']);
+        $insumo->setQuantidadeEstoque($linha['quantidade_estoque']);
+        $insumo->setImagem($linha['imagem']);
+
+        return $insumo;
+    }
+
+    public function Insert(\MODEL\Insumo $insumo)
+    {
+        $sql = "INSERT INTO insumo
+                (nome, tipo, unidade_medida, quantidade_estoque, imagem)
+                VALUES (?, ?, ?, ?, ?);";
+
+        $con = Conexao::conectar();
+        $query = $con->prepare($sql);
+
+        $result = $query->execute(array(
+            $insumo->getNome(),
+            $insumo->getTipo(),
+            $insumo->getUnidadeMedida(),
+            $insumo->getQuantidadeEstoque(),
+            $insumo->getImagem()
+        ));
+
+        $con = Conexao::desconectar();
+
+        return $result;
+    }
+
+    public function Update(\MODEL\Insumo $insumo)
+    {
+        $sql = "UPDATE insumo
+                SET nome = ?,
+                    tipo = ?,
+                    unidade_medida = ?,
+                    quantidade_estoque = ?,
+                    imagem = ?
+                WHERE id = ?;";
+
+        $con = Conexao::conectar();
+        $query = $con->prepare($sql);
+
+        $result = $query->execute(array(
+            $insumo->getNome(),
+            $insumo->getTipo(),
+            $insumo->getUnidadeMedida(),
+            $insumo->getQuantidadeEstoque(),
+            $insumo->getImagem(),
+            $insumo->getId()
+        ));
+
+        $con = Conexao::desconectar();
+
+        return $result;
+    }
+
+    public function Delete(int $id)
+    {
+        $sql = "DELETE FROM insumo WHERE id = ?;";
+
+        $con = Conexao::conectar();
+        $query = $con->prepare($sql);
+        $result = $query->execute(array($id));
+        $con = Conexao::desconectar();
+
+        return $result;
+    }
+}
+?>
