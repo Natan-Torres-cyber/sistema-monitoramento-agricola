@@ -1,6 +1,8 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/DAL/insumoDAL.php";
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/MODEL/insumo.php";
+$caminhoRaiz = '../../';
+require_once __DIR__ . '/../../seguranca.php';
+include_once __DIR__ . '/../../DAL/insumoDAL.php';
+include_once __DIR__ . '/../../MODEL/insumo.php';
 
 $id = $_GET['id'];
 
@@ -54,7 +56,7 @@ $insumo = $dalInsumo->SelectById($id);
         <div class="input-field">
             <input type="text" name="imagem" id="imagem"
                    value="<?php echo $insumo->getImagem(); ?>">
-            <label class="active" for="imagem">Imagem</label>
+            <label class="active" for="imagem">URL da imagem</label>
         </div>
 
         <button class="btn orange" type="submit">Salvar alterações</button>

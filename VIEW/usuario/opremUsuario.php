@@ -1,5 +1,7 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/DAL/usuarioDAL.php";
+$caminhoRaiz = '../../';
+require_once __DIR__ . '/../../seguranca.php';
+include_once __DIR__ . '/../../DAL/usuarioDAL.php';
 
 $id = $_GET['id'];
 

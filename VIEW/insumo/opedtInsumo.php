@@ -1,6 +1,8 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/DAL/insumoDAL.php";
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/MODEL/insumo.php";
+$caminhoRaiz = '../../';
+require_once __DIR__ . '/../../seguranca.php';
+include_once __DIR__ . '/../../DAL/insumoDAL.php';
+include_once __DIR__ . '/../../MODEL/insumo.php';
 
 $insumo = new MODEL\Insumo();
 

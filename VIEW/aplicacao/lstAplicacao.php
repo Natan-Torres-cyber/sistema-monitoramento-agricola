@@ -1,6 +1,8 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/DAL/aplicacaoDAL.php";
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/MODEL/aplicacao.php";
+$caminhoRaiz = '../../';
+require_once __DIR__ . '/../../seguranca.php';
+include_once __DIR__ . '/../../DAL/aplicacaoDAL.php';
+include_once __DIR__ . '/../../MODEL/aplicacao.php';
 
 $dalAplicacao = new DAL\AplicacaoDAL();
 $lstAplicacao = $dalAplicacao->Select();
@@ -16,6 +18,7 @@ $lstAplicacao = $dalAplicacao->Select();
 <body class="green lighten-5">
 
 <div class="container">
+    <p><a href="../../index.php">&larr; Menu Principal</a></p>
     <h3>Lista de Aplicações</h3>
 
     <a class="btn green" href="frmisAplicacao.php">Nova Aplicação</a>

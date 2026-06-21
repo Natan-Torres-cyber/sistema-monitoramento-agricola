@@ -1,8 +1,10 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/DAL/aplicacaoDAL.php";
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/DAL/insumoDAL.php";
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/DAL/loteDAL.php";
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/DAL/usuarioDAL.php";
+$caminhoRaiz = '../../';
+require_once __DIR__ . '/../../seguranca.php';
+include_once __DIR__ . '/../../DAL/aplicacaoDAL.php';
+include_once __DIR__ . '/../../DAL/insumoDAL.php';
+include_once __DIR__ . '/../../DAL/loteDAL.php';
+include_once __DIR__ . '/../../DAL/usuarioDAL.php';
 
 $id = $_GET['id'];
 

@@ -1,3 +1,7 @@
+<?php
+$caminhoRaiz = '../../';
+require_once __DIR__ . '/../../seguranca.php';
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -11,6 +15,10 @@
 
 <div class="container">
     <h3>Cadastrar Insumo</h3>
+
+    <?php if (isset($_GET['erro'])) { ?>
+        <p class="red-text">Preencha nome, tipo, unidade e uma quantidade válida.</p>
+    <?php } ?>
 
     <form action="opinsInsumo.php" method="post">
 
@@ -36,7 +44,7 @@
 
         <div class="input-field">
             <input type="text" name="imagem" id="imagem">
-            <label for="imagem">Imagem (opcional)</label>
+            <label for="imagem">URL da imagem (opcional)</label>
         </div>
 
         <button class="btn green" type="submit">Salvar</button>

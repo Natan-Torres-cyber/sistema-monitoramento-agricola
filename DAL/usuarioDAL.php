@@ -2,8 +2,8 @@
 
 namespace DAL;
 
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/DAL/conexao.php";
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/MODEL/usuario.php";
+include_once __DIR__ . '/../DAL/conexao.php';
+include_once __DIR__ . '/../MODEL/usuario.php';
 
 class UsuarioDAL
 {
@@ -40,6 +40,31 @@ class UsuarioDAL
         $query->execute(array($id));
         $linha = $query->fetch(\PDO::FETCH_ASSOC);
         $con = Conexao::desconectar();
+
+        $usuario = new \MODEL\Usuario();
+
+        $usuario->setId($linha['id']);
+        $usuario->setNome($linha['nome']);
+        $usuario->setEmail($linha['email']);
+        $usuario->setSenha($linha['senha']);
+        $usuario->setPerfil($linha['perfil']);
+
+        return $usuario;
+    }
+
+    public function SelectByEmail(string $email)
+    {
+        $sql = "SELECT * FROM usuario WHERE email = ?;";
+
+        $con = Conexao::conectar();
+        $query = $con->prepare($sql);
+        $query->execute(array($email));
+        $linha = $query->fetch(\PDO::FETCH_ASSOC);
+        $con = Conexao::desconectar();
+
+        if (!$linha) {
+            return null;
+        }
 
         $usuario = new \MODEL\Usuario();
 

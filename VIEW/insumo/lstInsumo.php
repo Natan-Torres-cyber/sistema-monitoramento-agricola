@@ -1,6 +1,8 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/DAL/insumoDAL.php";
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/MODEL/insumo.php";
+$caminhoRaiz = '../../';
+require_once __DIR__ . '/../../seguranca.php';
+include_once __DIR__ . '/../../DAL/insumoDAL.php';
+include_once __DIR__ . '/../../MODEL/insumo.php';
 
 $dalInsumo = new DAL\InsumoDAL();
 $lstInsumo = $dalInsumo->Select();
@@ -20,6 +22,7 @@ $lstInsumo = $dalInsumo->Select();
 <body class="green lighten-5">
 
 <div class="container">
+    <p><a href="../../index.php">&larr; Menu Principal</a></p>
     <h3>Lista de Insumos</h3>
 
     <a class="btn green" href="frmisInsumo.php">
@@ -30,6 +33,7 @@ $lstInsumo = $dalInsumo->Select();
     <table class="striped responsive-table">
         <tr>
             <th>ID</th>
+            <th>Imagem</th>
             <th>Nome</th>
             <th>Tipo</th>
             <th>Unidade</th>
@@ -40,6 +44,11 @@ $lstInsumo = $dalInsumo->Select();
         <?php foreach ($lstInsumo as $insumo) { ?>
             <tr>
                 <td><?php echo $insumo->getId(); ?></td>
+                <td>
+                    <?php if (!empty($insumo->getImagem())) { ?>
+                        <img src="<?php echo htmlspecialchars($insumo->getImagem()); ?>" alt="<?php echo htmlspecialchars($insumo->getNome()); ?>" style="width:50px; height:50px; object-fit:cover; border-radius:4px;" onerror="this.style.display='none';">
+                    <?php } ?>
+                </td>
                 <td><?php echo $insumo->getNome(); ?></td>
                 <td><?php echo $insumo->getTipo(); ?></td>
                 <td><?php echo $insumo->getUnidadeMedida(); ?></td>

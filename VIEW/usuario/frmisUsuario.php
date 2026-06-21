@@ -1,3 +1,7 @@
+<?php
+$caminhoRaiz = '../../';
+require_once __DIR__ . '/../../seguranca.php';
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -9,6 +13,10 @@
 
 <div class="container">
     <h3>Cadastrar Usuário</h3>
+
+    <?php if (isset($_GET['erro'])) { ?>
+        <p class="red-text">Verifique os dados: nome, perfil, e-mail válido e senha com pelo menos 4 caracteres.</p>
+    <?php } ?>
 
     <form action="opinsUsuario.php" method="post">
         <div class="input-field">

@@ -1,8 +1,10 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/DAL/aplicacaoDAL.php";
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/DAL/insumoDAL.php";
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/DAL/loteDAL.php";
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/DAL/usuarioDAL.php";
+$caminhoRaiz = '../../';
+require_once __DIR__ . '/../../seguranca.php';
+include_once __DIR__ . '/../../DAL/aplicacaoDAL.php';
+include_once __DIR__ . '/../../DAL/insumoDAL.php';
+include_once __DIR__ . '/../../DAL/loteDAL.php';
+include_once __DIR__ . '/../../DAL/usuarioDAL.php';
 
 $id = $_GET['id'];
 
@@ -29,6 +31,10 @@ $lstUsuario = $dalUsuario->Select();
 <body class="green lighten-5">
 <div class="container">
     <h3>Editar Aplicação</h3>
+
+    <?php if (isset($_GET['erro']) && $_GET['erro'] === 'estoque') { ?>
+        <p class="red-text">Quantidade inválida ou maior do que o estoque disponível desse insumo.</p>
+    <?php } ?>
 
     <form action="opedtAplicacao.php" method="post">
         <input type="hidden" name="id" value="<?= $aplicacao->getId(); ?>">

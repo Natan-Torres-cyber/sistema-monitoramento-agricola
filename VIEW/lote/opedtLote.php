@@ -1,6 +1,8 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/DAL/loteDAL.php";
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/MODEL/lote.php";
+$caminhoRaiz = '../../';
+require_once __DIR__ . '/../../seguranca.php';
+include_once __DIR__ . '/../../DAL/loteDAL.php';
+include_once __DIR__ . '/../../MODEL/lote.php';
 
 $lote = new MODEL\Lote();
 

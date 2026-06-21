@@ -141,6 +141,14 @@ ALTER TABLE `usuario`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- Usuário inicial para o primeiro acesso
+-- login: admin@agromonitor.com | senha: admin123
+-- (troque a senha depois de logar, em VIEW/usuario/)
+--
+INSERT INTO `usuario` (`nome`, `email`, `senha`, `perfil`) VALUES
+('Administrador', 'admin@agromonitor.com', '$2y$10$wiXoF.lPjiB5CfDoVAvivuED/JrelSXBPhlcIAEq92icNHuNq12e6', 'admin');
+
+--
 -- Restrições para despejos de tabelas
 --
 

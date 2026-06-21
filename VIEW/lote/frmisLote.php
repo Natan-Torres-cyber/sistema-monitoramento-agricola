@@ -1,3 +1,7 @@
+<?php
+$caminhoRaiz = '../../';
+require_once __DIR__ . '/../../seguranca.php';
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -9,6 +13,10 @@
 
 <div class="container">
     <h3>Cadastrar Lote</h3>
+
+    <?php if (isset($_GET['erro'])) { ?>
+        <p class="red-text">Preencha nome, cultura e uma área válida.</p>
+    <?php } ?>
 
     <form action="opinsLote.php" method="post">
         <div class="input-field">

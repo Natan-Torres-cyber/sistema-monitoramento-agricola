@@ -1,7 +1,9 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/DAL/insumoDAL.php";
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/DAL/loteDAL.php";
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/DAL/usuarioDAL.php";
+$caminhoRaiz = '../../';
+require_once __DIR__ . '/../../seguranca.php';
+include_once __DIR__ . '/../../DAL/insumoDAL.php';
+include_once __DIR__ . '/../../DAL/loteDAL.php';
+include_once __DIR__ . '/../../DAL/usuarioDAL.php';
 
 $dalInsumo = new DAL\InsumoDAL();
 $dalLote = new DAL\LoteDAL();
@@ -31,6 +33,10 @@ $lstUsuario = $dalUsuario->Select();
 
 <div class="container">
     <h3>Cadastrar Aplicação</h3>
+
+    <?php if (isset($_GET['erro']) && $_GET['erro'] === 'estoque') { ?>
+        <p class="red-text">Quantidade inválida ou maior do que o estoque disponível desse insumo.</p>
+    <?php } ?>
 
     <form action="opinsAplicacao.php" method="post">
 

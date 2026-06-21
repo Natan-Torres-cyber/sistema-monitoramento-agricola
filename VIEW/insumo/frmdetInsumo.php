@@ -1,6 +1,8 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/DAL/insumoDAL.php";
-include_once $_SERVER['DOCUMENT_ROOT'] . "/ALMIR.1PHP/MODEL/insumo.php";
+$caminhoRaiz = '../../';
+require_once __DIR__ . '/../../seguranca.php';
+include_once __DIR__ . '/../../DAL/insumoDAL.php';
+include_once __DIR__ . '/../../MODEL/insumo.php';
 
 $id = $_GET['id'];
 
@@ -45,7 +47,13 @@ $insumo = $dalInsumo->SelectById($id);
         </tr>
         <tr>
             <th>Imagem</th>
-            <td><?php echo $insumo->getImagem(); ?></td>
+            <td>
+                <?php if (!empty($insumo->getImagem())) { ?>
+                    <img src="<?php echo htmlspecialchars($insumo->getImagem()); ?>" alt="<?php echo htmlspecialchars($insumo->getNome()); ?>" style="max-width:200px; border-radius:4px;" onerror="this.style.display='none';">
+                <?php } else { ?>
+                    <em>sem imagem</em>
+                <?php } ?>
+            </td>
         </tr>
     </table>
 
