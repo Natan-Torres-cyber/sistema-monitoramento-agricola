@@ -24,27 +24,27 @@ require_once __DIR__ . '/../../seguranca.php';
 
         <div class="input-field">
             <input type="text" name="nome" id="nome" required>
-            <label for="nome">Nome do insumo</label>
+            <label class="active" for="nome">Nome do insumo</label>
         </div>
 
         <div class="input-field">
             <input type="text" name="tipo" id="tipo" required>
-            <label for="tipo">Tipo</label>
+            <label class="active" for="tipo">Tipo</label>
         </div>
 
         <div class="input-field">
             <input type="text" name="unidade_medida" id="unidade_medida" required>
-            <label for="unidade_medida">Unidade de medida</label>
+            <label class="active" for="unidade_medida">Unidade de medida</label>
         </div>
 
         <div class="input-field">
             <input type="number" step="0.01" min="0" name="quantidade_estoque" id="quantidade_estoque" required>
-            <label for="quantidade_estoque">Quantidade em estoque</label>
+            <label class="active" for="quantidade_estoque">Quantidade em estoque</label>
         </div>
 
         <div class="input-field">
             <input type="text" name="imagem" id="imagem">
-            <label for="imagem">URL da imagem (opcional)</label>
+            <label class="active" for="imagem">URL da imagem (opcional)</label>
         </div>
 
         <button class="btn green" type="submit">Salvar</button>

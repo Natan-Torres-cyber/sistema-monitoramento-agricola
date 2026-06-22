@@ -21,22 +21,22 @@ require_once __DIR__ . '/../../seguranca.php';
     <form action="opinsLote.php" method="post">
         <div class="input-field">
             <input type="text" name="nome" id="nome" required>
-            <label for="nome">Nome do lote</label>
+            <label class="active" for="nome">Nome do lote</label>
         </div>
 
         <div class="input-field">
             <input type="text" name="cultura" id="cultura" required>
-            <label for="cultura">Cultura</label>
+            <label class="active" for="cultura">Cultura</label>
         </div>
 
         <div class="input-field">
             <input type="number" step="0.01" min="0" name="area_hectares" id="area_hectares" required>
-            <label for="area_hectares">Área em hectares</label>
+            <label class="active" for="area_hectares">Área em hectares</label>
         </div>
 
         <div class="input-field">
             <input type="text" name="localizacao" id="localizacao">
-            <label for="localizacao">Localização</label>
+            <label class="active" for="localizacao">Localização</label>
         </div>
 
         <button class="btn green" type="submit">Salvar</button>

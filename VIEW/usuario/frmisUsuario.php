@@ -21,22 +21,22 @@ require_once __DIR__ . '/../../seguranca.php';
     <form action="opinsUsuario.php" method="post">
         <div class="input-field">
             <input type="text" name="nome" id="nome" required>
-            <label for="nome">Nome</label>
+            <label class="active" for="nome">Nome</label>
         </div>
 
         <div class="input-field">
             <input type="email" name="email" id="email" required>
-            <label for="email">E-mail</label>
+            <label class="active" for="email">E-mail</label>
         </div>
 
         <div class="input-field">
             <input type="password" name="senha" id="senha" required>
-            <label for="senha">Senha</label>
+            <label class="active" for="senha">Senha</label>
         </div>
 
         <div class="input-field">
             <input type="text" name="perfil" id="perfil" required>
-            <label for="perfil">Perfil</label>
+            <label class="active" for="perfil">Perfil</label>
         </div>
 
         <button class="btn green" type="submit">Salvar</button>
