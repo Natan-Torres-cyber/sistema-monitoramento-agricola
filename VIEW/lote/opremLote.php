@@ -9,5 +9,6 @@ $dalLote = new DAL\LoteDAL();
 $dalLote->Delete($id);
 
 header("Location: lstLote.php");
+echo "Olá, mundo!";
 exit;
 ?>

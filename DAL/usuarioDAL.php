@@ -9,7 +9,7 @@ class UsuarioDAL
 {
     public function Select()
     {
-        $sql = "SELECT * FROM usuario;";
+        $sql = "SELECT * FROM usuario ORDER BY nome;";
         $con = Conexao::conectar();
         $registros = $con->query($sql);
         $con = Conexao::desconectar();
@@ -40,6 +40,10 @@ class UsuarioDAL
         $query->execute(array($id));
         $linha = $query->fetch(\PDO::FETCH_ASSOC);
         $con = Conexao::desconectar();
+        
+        if (!$linha) {
+            return null;
+        }
 
         $usuario = new \MODEL\Usuario();
 
@@ -75,6 +79,18 @@ class UsuarioDAL
         $usuario->setPerfil($linha['perfil']);
 
         return $usuario;
+    }
+
+    // Verifica se um e-mail ja' existe (opcionalmente ignorando um id, na edicao).
+    public function EmailExiste(string $email, int $ignorarId = 0)
+    {
+        $sql = "SELECT id FROM usuario WHERE email = ? AND id <> ?;";
+        $con = Conexao::conectar();
+        $query = $con->prepare($sql);
+        $query->execute(array($email, $ignorarId));
+        $existe = $query->fetch(\PDO::FETCH_ASSOC) !== false;
+        $con = Conexao::desconectar();
+        return $existe;
     }
 
     public function Insert(\MODEL\Usuario $usuario)

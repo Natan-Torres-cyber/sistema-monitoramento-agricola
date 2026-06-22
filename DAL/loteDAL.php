@@ -9,7 +9,7 @@ class LoteDAL
 {
     public function Select()
     {
-        $sql = "SELECT * FROM lote;";
+        $sql = "SELECT * FROM lote ORDER BY nome;";
         $con = Conexao::conectar();
         $registros = $con->query($sql);
         $con = Conexao::desconectar();
@@ -34,13 +34,17 @@ class LoteDAL
     public function SelectById(int $id)
     {
         $sql = "SELECT * FROM lote WHERE id = ?;";
-
+        
         $con = Conexao::conectar();
         $query = $con->prepare($sql);
         $query->execute(array($id));
         $linha = $query->fetch(\PDO::FETCH_ASSOC);
         $con = Conexao::desconectar();
-
+        
+        if (!$linha) {
+            return null;
+        }
+        
         $lote = new \MODEL\Lote();
 
         $lote->setId($linha['id']);

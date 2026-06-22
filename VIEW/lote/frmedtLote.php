@@ -4,24 +4,23 @@ require_once __DIR__ . '/../../seguranca.php';
 include_once __DIR__ . '/../../DAL/loteDAL.php';
 include_once __DIR__ . '/../../MODEL/lote.php';
 
-$id = $_GET['id'];
+$id = (int) ($_GET['id'] ?? 0);
 
 $dalLote = new DAL\LoteDAL();
 $lote = $dalLote->SelectById($id);
+
+if ($lote === null) {
+    header("Location: lstLote.php");
+    exit;
+}
+
+$tituloPagina = 'Editar Lote';
+
+include __DIR__ . '/../../header.php';
 ?>
-
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar Lote</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-</head>
-<body class="green lighten-5">
-
-<div class="container">
     <h3>Editar Lote</h3>
-
+    <div class="card">
+        <div class="card-content">
     <form action="opedtLote.php" method="post">
         <input type="hidden" name="id" value="<?= $lote->getId(); ?>">
 
@@ -48,7 +47,7 @@ $lote = $dalLote->SelectById($id);
         <button class="btn orange" type="submit">Salvar alterações</button>
         <a class="btn grey" href="lstLote.php">Cancelar</a>
     </form>
-</div>
+        </div>
+    </div>
 
-</body>
-</html>
+<?php include __DIR__ . '/../../footer.php'; ?>

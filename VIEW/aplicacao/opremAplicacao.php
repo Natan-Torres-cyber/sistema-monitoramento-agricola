@@ -11,7 +11,12 @@ $dalInsumo = new DAL\InsumoDAL();
 
 // devolve a quantidade pro estoque do insumo antes de excluir
 $aplicacao = $dalAplicacao->SelectById($id);
+if ($aplicacao === null) {
+    header("Location: lstAplicacao.php");
+    exit;
+}
 $insumo = $dalInsumo->SelectById((int) $aplicacao->getInsumoId());
+
 $insumo->setQuantidadeEstoque($insumo->getQuantidadeEstoque() + $aplicacao->getQuantidadeUtilizada());
 $dalInsumo->Update($insumo);
 

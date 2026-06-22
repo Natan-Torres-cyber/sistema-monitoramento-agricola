@@ -4,26 +4,24 @@ require_once __DIR__ . '/../../seguranca.php';
 include_once __DIR__ . '/../../DAL/insumoDAL.php';
 include_once __DIR__ . '/../../MODEL/insumo.php';
 
-$id = $_GET['id'];
+$id = (int) ($_GET['id'] ?? 0);
 
 $dalInsumo = new DAL\InsumoDAL();
 $insumo = $dalInsumo->SelectById($id);
+
+if ($insumo === null) {
+    header("Location: lstInsumo.php");
+    exit;
+}
+
+$tituloPagina = 'Detalhes do Insumo';
+
+include __DIR__ . '/../../header.php';
 ?>
-
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Detalhes do Insumo</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-</head>
-
-<body class="green lighten-5">
-
-<div class="container">
-    <h3>Detalhes do Insumo</h3>
-
+    <h3 class="green-text text-darken-3">Detalhes do Insumo</h3>
+    <div class="card">
+        <div class="card-content">
+    
     <table class="striped">
         <tr>
             <th>ID</th>
@@ -56,11 +54,11 @@ $insumo = $dalInsumo->SelectById($id);
             </td>
         </tr>
     </table>
-
+    
     <br>
-
+    
     <a class="btn grey" href="lstInsumo.php">Voltar</a>
-</div>
+        </div>
+    </div>
 
-</body>
-</html>
+<?php include __DIR__ . '/../../footer.php'; ?>

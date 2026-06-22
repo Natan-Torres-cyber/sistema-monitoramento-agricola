@@ -12,32 +12,18 @@ $dalUsuario = new DAL\UsuarioDAL();
 $lstInsumo = $dalInsumo->Select();
 $lstLote = $dalLote->Select();
 $lstUsuario = $dalUsuario->Select();
+$tituloPagina = 'Cadastrar Aplicação';
+include __DIR__ . '/../../header.php';
 ?>
-
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Cadastrar Aplicação</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var elems = document.querySelectorAll('select');
-            M.FormSelect.init(elems);
-        });
-    </script>
-</head>
-
-<body class="green lighten-5">
-
-<div class="container">
-    <h3>Cadastrar Aplicação</h3>
-
+    <h3 class="green-text text-darken-3">Cadastrar Aplicação</h3>
+    <div class="card">
+        <div class="card-content">
     <?php if (isset($_GET['erro']) && $_GET['erro'] === 'estoque') { ?>
-        <p class="red-text">Quantidade inválida ou maior do que o estoque disponível desse insumo.</p>
+        <div class="card-panel red lighten-4 red-text text-darken-4">
+            <p class="red-text">Quantidade inválida ou maior do que o estoque disponível desse insumo.</p>
+        </div>
     <?php } ?>
-
+    
     <form action="opinsAplicacao.php" method="post">
 
         <div class="input-field">
@@ -94,9 +80,7 @@ $lstUsuario = $dalUsuario->Select();
         <button class="btn green" type="submit">Salvar</button>
         <a class="btn grey" href="lstAplicacao.php">Cancelar</a>
     </form>
-</div>
+        </div>
+    </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-</body>
-</html>
+<?php include __DIR__ . '/../../footer.php'; ?>

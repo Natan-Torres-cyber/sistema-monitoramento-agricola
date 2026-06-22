@@ -4,24 +4,23 @@ require_once __DIR__ . '/../../seguranca.php';
 include_once __DIR__ . '/../../DAL/usuarioDAL.php';
 include_once __DIR__ . '/../../MODEL/usuario.php';
 
-$id = $_GET['id'];
+$id = (int) ($_GET['id'] ?? 0);
 
 $dalUsuario = new DAL\UsuarioDAL();
 $usuario = $dalUsuario->SelectById($id);
+
+if ($usuario === null) {
+    header("Location: lstUsuario.php");
+    exit;
+}
+
+$tituloPagina = 'Editar Usuário';
+
+include __DIR__ . '/../../header.php';
 ?>
-
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar Usuário</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-</head>
-<body class="green lighten-5">
-
-<div class="container">
     <h3>Editar Usuário</h3>
-
+    <div class="card">
+        <div class="card-content">
     <form action="opedtUsuario.php" method="post">
         <input type="hidden" name="id" value="<?= $usuario->getId(); ?>">
         <input type="hidden" name="senha_atual" value="<?= $usuario->getSenha(); ?>">
@@ -49,7 +48,7 @@ $usuario = $dalUsuario->SelectById($id);
         <button class="btn orange" type="submit">Salvar alterações</button>
         <a class="btn grey" href="lstUsuario.php">Cancelar</a>
     </form>
-</div>
+        </div>
+    </div>
 
-</body>
-</html>
+<?php include __DIR__ . '/../../footer.php'; ?>

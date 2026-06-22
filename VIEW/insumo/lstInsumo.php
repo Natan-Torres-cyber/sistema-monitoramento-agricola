@@ -6,40 +6,29 @@ include_once __DIR__ . '/../../MODEL/insumo.php';
 
 $dalInsumo = new DAL\InsumoDAL();
 $lstInsumo = $dalInsumo->Select();
+$tituloPagina = 'Insumos';
+include __DIR__ . '/../../header.php';
 ?>
-
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Listar Insumos</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
-
-<body class="green lighten-5">
-
-<div class="container">
-    <p><a href="../../index.php">&larr; Menu Principal</a></p>
-    <h3>Lista de Insumos</h3>
-
+<h3>Lista de Insumos</h3>
+    <div class="card">
+        <div class="card-content">
     <a class="btn green" href="frmisInsumo.php">
         <i class="material-icons right">add</i>
         Novo Insumo
     </a>
 
-    <table class="striped responsive-table">
-        <tr>
-            <th>ID</th>
-            <th>Imagem</th>
-            <th>Nome</th>
-            <th>Tipo</th>
-            <th>Unidade</th>
-            <th>Estoque</th>
-            <th>Ações</th>
-        </tr>
+    <table class="striped highlight responsive-table white z-depth-1" style="margin-top:25px;">
+        <thead class="green lighten-4">
+            <tr>
+                <th>ID</th>
+                <th>Imagem</th>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th>Unidade</th>
+                <th>Estoque</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
 
         <?php foreach ($lstInsumo as $insumo) { ?>
             <tr>
@@ -63,7 +52,6 @@ $lstInsumo = $dalInsumo->Select();
             </tr>
         <?php } ?>
     </table>
-</div>
 
 <script>
 function remover(id) {
@@ -72,6 +60,7 @@ function remover(id) {
     }
 }
 </script>
+        </div>
+    </div>
 
-</body>
-</html>
+<?php include __DIR__ . '/../../footer.php'; ?>

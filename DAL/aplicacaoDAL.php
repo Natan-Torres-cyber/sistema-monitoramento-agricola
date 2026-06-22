@@ -5,11 +5,19 @@ namespace DAL;
 include_once __DIR__ . '/../DAL/conexao.php';
 include_once __DIR__ . '/../MODEL/aplicacao.php';
 
-class AplicacaoDAL
-{
+class AplicacaoDAL{
     public function Select()
     {
-        $sql = "SELECT * FROM aplicacao;";
+        $sql = "SELECT a.*, 
+                       i.nome AS insumo_nome,
+                       l.nome AS lote_nome,
+                       u.nome AS usuario_nome
+                FROM aplicacao a
+                JOIN insumo  i ON i.id = a.insumo_id
+                JOIN lote    l ON l.id = a.lote_id
+                JOIN usuario u ON u.id = a.usuario_id
+                ORDER BY a.id DESC;";
+
         $con = Conexao::conectar();
         $registros = $con->query($sql);
         $con = Conexao::desconectar();
@@ -27,6 +35,10 @@ class AplicacaoDAL
             $aplicacao->setLoteId($linha['lote_id']);
             $aplicacao->setUsuarioId($linha['usuario_id']);
 
+            $aplicacao->insumo_nome  = $linha['insumo_nome'];
+            $aplicacao->lote_nome    = $linha['lote_nome'];
+            $aplicacao->usuario_nome = $linha['usuario_nome'];
+
             $lstAplicacao[] = $aplicacao;
         }
 
@@ -42,6 +54,10 @@ class AplicacaoDAL
         $query->execute(array($id));
         $linha = $query->fetch(\PDO::FETCH_ASSOC);
         $con = Conexao::desconectar();
+
+        if (!$linha) {
+            return null;
+        }
 
         $aplicacao = new \MODEL\Aplicacao();
 

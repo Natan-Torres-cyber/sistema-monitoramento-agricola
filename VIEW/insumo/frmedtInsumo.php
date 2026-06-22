@@ -4,26 +4,23 @@ require_once __DIR__ . '/../../seguranca.php';
 include_once __DIR__ . '/../../DAL/insumoDAL.php';
 include_once __DIR__ . '/../../MODEL/insumo.php';
 
-$id = $_GET['id'];
+$id = (int) ($_GET['id'] ?? 0);
 
 $dalInsumo = new DAL\InsumoDAL();
 $insumo = $dalInsumo->SelectById($id);
+
+if ($insumo === null) {
+    header("Location: lstInsumo.php");
+    exit;
+}
+
+$tituloPagina = 'Editar Insumo';
+
+include __DIR__ . '/../../header.php';
 ?>
-
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar Insumo</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-</head>
-
-<body class="green lighten-5">
-
-<div class="container">
     <h3>Editar Insumo</h3>
-
+    <div class="card">
+        <div class="card-content">
     <form action="opedtInsumo.php" method="post">
 
         <input type="hidden" name="id" value="<?php echo $insumo->getId(); ?>">
@@ -62,7 +59,7 @@ $insumo = $dalInsumo->SelectById($id);
         <button class="btn orange" type="submit">Salvar alterações</button>
         <a class="btn grey" href="lstInsumo.php">Cancelar</a>
     </form>
-</div>
+        </div>
+    </div>
 
-</body>
-</html>
+<?php include __DIR__ . '/../../footer.php'; ?>

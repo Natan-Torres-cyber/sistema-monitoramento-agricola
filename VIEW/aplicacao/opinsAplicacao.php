@@ -9,6 +9,10 @@ $quantidadeUtilizada = $_POST['quantidade_utilizada'] ?? '';
 
 $dalInsumo = new DAL\InsumoDAL();
 $insumo = $dalInsumo->SelectById((int) $_POST['insumo_id']);
+if ($insumo === null) {
+    header("Location: frmisAplicacao.php?erro=estoque");
+    exit;
+}
 
 // não deixa aplicar mais do que tem em estoque
 if (!is_numeric($quantidadeUtilizada) || $quantidadeUtilizada <= 0 || $quantidadeUtilizada > $insumo->getQuantidadeEstoque()) {

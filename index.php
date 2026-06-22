@@ -1,51 +1,59 @@
 <?php
 $caminhoRaiz = '';
 require_once __DIR__ . '/seguranca.php';
+$tituloPagina = 'Menu Principal';
+include __DIR__ . '/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>AgroMonitor - Menu</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-</head>
-<body class="green lighten-5">
 
-<nav class="green darken-2">
-    <div class="nav-wrapper container">
-        <a href="index.php" class="brand-logo">AgroMonitor</a>
-        <ul class="right">
-            <li><a href="logout.php"><?= htmlspecialchars($_SESSION['usuario_nome']) ?> | Sair</a></li>
-        </ul>
+<h3 class="green-text text-darken-3">Menu Principal</h3>
+<p class="grey-text">Bem-vindo(a), <?php echo htmlspecialchars($_SESSION['usuario_nome'] ?? ''); ?>.</p>
+
+<div class="row" style="margin-top: 20px;">
+
+    <div class="col s12 m6 l3">
+        <a href="VIEW/insumo/lstInsumo.php" class="white-text">
+            <div class="card teal darken-1 hoverable center-align z-depth-2">
+                <div class="card-content">
+                    <i class="material-icons" style="font-size: 3rem;">inventory_2</i>
+                    <h5>Insumos</h5>
+                </div>
+            </div>
+        </a>
     </div>
-</nav>
 
-<div class="container" style="margin-top: 40px;">
-    <h3>Menu Principal</h3>
-
-    <div class="row">
-        <div class="col s12 m6">
-            <a class="btn green waves-effect" style="width: 100%; margin-bottom: 10px;" href="VIEW/lote/lstLote.php">
-                Lotes
-            </a>
-        </div>
-        <div class="col s12 m6">
-            <a class="btn green waves-effect" style="width: 100%; margin-bottom: 10px;" href="VIEW/insumo/lstInsumo.php">
-                Insumos
-            </a>
-        </div>
-        <div class="col s12 m6">
-            <a class="btn green waves-effect" style="width: 100%; margin-bottom: 10px;" href="VIEW/aplicacao/lstAplicacao.php">
-                Aplicações
-            </a>
-        </div>
-        <div class="col s12 m6">
-            <a class="btn green waves-effect" style="width: 100%; margin-bottom: 10px;" href="VIEW/usuario/lstUsuario.php">
-                Usuários
-            </a>
-        </div>
+    <div class="col s12 m6 l3">
+        <a href="VIEW/lote/lstLote.php" class="white-text">
+            <div class="card light-green darken-1 hoverable center-align z-depth-2">
+                <div class="card-content">
+                    <i class="material-icons" style="font-size: 3rem;">grass</i>
+                    <h5>Lotes</h5>
+                </div>
+            </div>
+        </a>
     </div>
+
+    <div class="col s12 m6 l3">
+        <a href="VIEW/aplicacao/lstAplicacao.php" class="white-text">
+            <div class="card green darken-3 hoverable center-align z-depth-2">
+                <div class="card-content">
+                    <i class="material-icons" style="font-size: 3rem;">science</i>
+                    <h5>Aplicações</h5>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col s12 m6 l3">
+        <a href="VIEW/usuario/lstUsuario.php" class="white-text">
+            <div class="card blue-grey darken-1 hoverable center-align z-depth-2">
+                <div class="card-content">
+                    <i class="material-icons" style="font-size: 3rem;">people</i>
+                    <h5>Usuários</h5>
+                </div>
+            </div>
+        </a>
+    </div>
+
 </div>
 
-</body>
-</html>
+<?php include __DIR__ . '/footer.php'; ?>

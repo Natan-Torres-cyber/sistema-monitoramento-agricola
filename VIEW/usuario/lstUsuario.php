@@ -6,31 +6,24 @@ include_once __DIR__ . '/../../MODEL/usuario.php';
 
 $dalUsuario = new DAL\UsuarioDAL();
 $lstUsuario = $dalUsuario->Select();
+$tituloPagina = 'Usuários';
+include __DIR__ . '/../../header.php';
 ?>
-
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Listar Usuários</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-</head>
-<body class="green lighten-5">
-
-<div class="container">
-    <p><a href="../../index.php">&larr; Menu Principal</a></p>
-    <h3>Lista de Usuários</h3>
-
+<h3>Lista de Usuários</h3>
+    <div class="card">
+        <div class="card-content">
     <a class="btn green" href="frmisUsuario.php">Novo Usuário</a>
 
-    <table class="striped responsive-table">
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>E-mail</th>
-            <th>Perfil</th>
-            <th>Ações</th>
-        </tr>
+    <table class="striped highlight responsive-table white z-depth-1" style="margin-top:25px;">
+        <thead class="green lighten-4">
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Perfil</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
 
         <?php foreach ($lstUsuario as $usuario) { ?>
             <tr>
@@ -46,7 +39,6 @@ $lstUsuario = $dalUsuario->Select();
             </tr>
         <?php } ?>
     </table>
-</div>
 
 <script>
 function remover(id) {
@@ -55,6 +47,7 @@ function remover(id) {
     }
 }
 </script>
+        </div>
+    </div>
 
-</body>
-</html>
+<?php include __DIR__ . '/../../footer.php'; ?>

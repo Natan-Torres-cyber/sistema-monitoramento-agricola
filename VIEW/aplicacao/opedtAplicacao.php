@@ -14,6 +14,10 @@ $dalInsumo = new DAL\InsumoDAL();
 
 // pega os dados antigos pra poder desfazer a movimentação anterior
 $aplicacaoAntiga = $dalAplicacao->SelectById($id);
+if ($aplicacaoAntiga === null) {//MELHORANDO ADICIONADO
+    header("Location: lstAplicacao.php");
+    exit;
+}
 $insumoAntigo = $dalInsumo->SelectById((int) $aplicacaoAntiga->getInsumoId());
 
 // devolve ao estoque a quantidade que tinha sido descontada antes
